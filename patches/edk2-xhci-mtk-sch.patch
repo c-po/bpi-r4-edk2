@@ -1,0 +1,40 @@
+diff --git i/MdeModulePkg/Bus/Pci/XhciDxe/XhciSched.c w/MdeModulePkg/Bus/Pci/XhciDxe/XhciSched.c
+index e8cb7ed..49adf9a 100644
+--- i/MdeModulePkg/Bus/Pci/XhciDxe/XhciSched.c
++++ w/MdeModulePkg/Bus/Pci/XhciDxe/XhciSched.c
+@@ -3084,6 +3084,17 @@ XhcInitializeEndpointContext (
+           InputContext->EP[Dci-1].CErr             = 3;
+         }
+ 
++#ifdef XHCI_MTK_SCH
++        //
++        // MediaTek xHCI reads its periodic bandwidth parameters from the
++        // reserved dwords 5/6 (Linux drivers/usb/host/xhci-mtk-sch.c): one
++        // packet per service interval at offset 0, enough while this is the
++        // only periodic endpoint in its interval.
++        //
++        InputContext->EP[Dci-1].RsvdZ5 = 1;
++        InputContext->EP[Dci-1].RsvdZ6 = 0;
++#endif
++
+         if (Xhc->UsbDevContext[SlotId].EndpointTransferRing[Dci-1] == NULL) {
+           EndpointTransferRing                                   = AllocateZeroPool (sizeof (TRANSFER_RING));
+           Xhc->UsbDevContext[SlotId].EndpointTransferRing[Dci-1] = (VOID *)EndpointTransferRing;
+@@ -3260,6 +3271,17 @@ XhcInitializeEndpointContext64 (
+           InputContext->EP[Dci-1].CErr             = 3;
+         }
+ 
++#ifdef XHCI_MTK_SCH
++        //
++        // MediaTek xHCI reads its periodic bandwidth parameters from the
++        // reserved dwords 5/6 (Linux drivers/usb/host/xhci-mtk-sch.c): one
++        // packet per service interval at offset 0, enough while this is the
++        // only periodic endpoint in its interval.
++        //
++        InputContext->EP[Dci-1].RsvdZ5 = 1;
++        InputContext->EP[Dci-1].RsvdZ6 = 0;
++#endif
++
+         if (Xhc->UsbDevContext[SlotId].EndpointTransferRing[Dci-1] == NULL) {
+           EndpointTransferRing                                   = AllocateZeroPool (sizeof (TRANSFER_RING));
+           Xhc->UsbDevContext[SlotId].EndpointTransferRing[Dci-1] = (VOID *)EndpointTransferRing;

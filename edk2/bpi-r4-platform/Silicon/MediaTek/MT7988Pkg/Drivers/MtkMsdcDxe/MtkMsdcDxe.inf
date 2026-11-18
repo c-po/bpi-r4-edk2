@@ -1,0 +1,49 @@
+## @file
+#  MediaTek MSDC SD host controller driver (PIO).
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MtkMsdcDxe
+  FILE_GUID                      = 73869098-9c0a-4e02-a3b0-1f8e1a6a3d87
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MtkMsdcDxeInitialize
+
+[Sources]
+  MtkMsdc.h
+  MtkMsdcDxe.c
+
+[Packages]
+  EmbeddedPkg/EmbeddedPkg.dec
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  DebugLib
+  DevicePathLib
+  IoLib
+  MT7988BootMediumLib
+  PcdLib
+  TimerLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+
+[Guids]
+  gMtkMsdcDevicePathGuid
+
+[Protocols]
+  gEmbeddedMmcHostProtocolGuid      ## PRODUCES
+
+[FixedPcd]
+  gMT7988TokenSpaceGuid.PcdMsdcBase
+  gMT7988TokenSpaceGuid.PcdMsdcTopBase
+  gMT7988TokenSpaceGuid.PcdMsdcSourceClockHz
+  gMT7988TokenSpaceGuid.PcdMsdcMaxBusClockHz
+
+[Depex]
+  TRUE

@@ -1,0 +1,38 @@
+## @file
+#  BPI-R4 board data for the ArmPkg SMBIOS drivers.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = BpiR4OemMiscLib
+  FILE_GUID                      = eb19125a-710c-4cf2-bc67-b8033dd2cb3b
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = OemMiscLib|DXE_DRIVER
+
+[Sources]
+  BpiR4OemMiscLib.c
+
+[Packages]
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  Platform/BananaPi/BpiR4/BpiR4Pkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  BpiR4MacLib
+  DebugLib
+  HiiLib
+  PcdLib
+  PrintLib
+
+[Pcd]
+  gArmPlatformTokenSpaceGuid.PcdCoreCount
+  gArmTokenSpaceGuid.PcdBaseBoardManufacturer
+  gArmTokenSpaceGuid.PcdEmbeddedControllerFirmwareRelease
+  gArmTokenSpaceGuid.PcdSystemBiosRelease

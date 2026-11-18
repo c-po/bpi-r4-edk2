@@ -1,0 +1,37 @@
+## @file
+#  MT7988 xHCI bring-up, registered as a non-discoverable xHCI device.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MtkXhciDxe
+  FILE_GUID                      = 11a0a1da-6585-4f16-adc1-3a3f80b55cb6
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MtkXhciDxeInitialize
+
+[Sources]
+  MtkXhciDxe.c
+
+[Packages]
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  DebugLib
+  IoLib
+  NonDiscoverableDeviceRegistrationLib
+  TimerLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiLib
+
+[Protocols]
+  gEfiUsb2HcProtocolGuid    ## NOTIFY
+
+[Depex]
+  TRUE

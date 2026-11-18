@@ -1,0 +1,45 @@
+## @file
+#  Setup page to view and change the BPI-R4 MAC addresses.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = BpiR4MacConfigDxe
+  FILE_GUID                      = 1f15009b-edd4-4f19-b6ff-64350ac38eaa
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = BpiR4MacConfigDxeInitialize
+
+[Sources]
+  BpiR4MacConfig.h
+  BpiR4MacConfigDxe.c
+  BpiR4MacConfigHii.uni
+  BpiR4MacConfigHii.vfr
+
+[Packages]
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  Platform/BananaPi/BpiR4/BpiR4Pkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  BpiR4MacLib
+  DebugLib
+  DevicePathLib
+  HiiLib
+  MemoryAllocationLib
+  PrintLib
+  UefiBootServicesTableLib
+  UefiDriverEntryPoint
+  UefiRuntimeServicesTableLib
+
+[Protocols]
+  gEfiDevicePathProtocolGuid         ## PRODUCES
+  gEfiHiiConfigAccessProtocolGuid    ## PRODUCES
+
+[Depex]
+  gEfiVariableArchProtocolGuid AND gEfiVariableWriteArchProtocolGuid

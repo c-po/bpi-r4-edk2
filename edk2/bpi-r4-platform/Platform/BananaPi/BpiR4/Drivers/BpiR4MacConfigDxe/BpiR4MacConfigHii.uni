@@ -1,0 +1,33 @@
+/** @file
+  BPI-R4 MAC address page strings.
+
+  SPDX-License-Identifier: BSD-2-Clause-Patent
+
+**/
+
+#langdef en-US  "English"
+
+#string STR_NULL               #language en-US ""
+
+#string STR_FORMSET_TITLE      #language en-US "BPI-R4 MAC Addresses"
+#string STR_FORMSET_HELP       #language en-US "View or change the Ethernet MAC addresses stored in the on-board EEPROM."
+
+// Filled in at runtime
+#string STR_BASE               #language en-US ""
+#string STR_STATUS             #language en-US ""
+#string STR_PORT0              #language en-US ""
+#string STR_PORT1              #language en-US ""
+#string STR_PORT2              #language en-US ""
+#string STR_PORT3              #language en-US ""
+#string STR_PORT4              #language en-US ""
+#string STR_PORT5              #language en-US ""
+#string STR_PORT6              #language en-US ""
+
+#string STR_SET_PROMPT         #language en-US "Set base MAC"
+#string STR_SET_HELP           #language en-US "Enter a unicast base MAC as xx:xx:xx:xx:xx:xx. Interfaces get base+0 to base+6. Written to the EEPROM immediately, used from the next boot."
+
+#string STR_REGENERATE_PROMPT  #language en-US "Generate random base MAC"
+#string STR_REGENERATE_HELP    #language en-US "Store a new random, locally administered base MAC. Used from the next boot."
+
+#string STR_CLEAR_PROMPT       #language en-US "Erase stored MAC"
+#string STR_CLEAR_HELP         #language en-US "Erase the EEPROM record. The next boot generates and stores a new random base MAC."

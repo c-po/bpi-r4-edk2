@@ -1,0 +1,46 @@
+## @file
+#  ArmPlatformLib for MediaTek MT7988.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MT7988PlatformLib
+  FILE_GUID                      = c05f486c-6b81-4069-8963-e3455ad3b98c
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = ArmPlatformLib
+
+[Sources.common]
+  MT7988PlatformLib.c
+  MT7988PlatformLibMem.c
+
+[Sources.AARCH64]
+  AArch64/MT7988Helper.S
+
+[Packages]
+  ArmPkg/ArmPkg.dec
+  ArmPlatformPkg/ArmPlatformPkg.dec
+  EmbeddedPkg/EmbeddedPkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  ArmLib
+  DebugLib
+  HobLib
+  IoLib
+  MemoryAllocationLib
+
+[Ppis]
+  gArmMpCoreInfoPpiGuid
+
+[FixedPcd]
+  gArmTokenSpaceGuid.PcdSystemMemoryBase
+  gArmTokenSpaceGuid.PcdSystemMemorySize
+  gMT7988TokenSpaceGuid.PcdSystemMemoryMaxSize
+  gMT7988TokenSpaceGuid.PcdSecureMonitorBase
+  gMT7988TokenSpaceGuid.PcdSecureMonitorSize

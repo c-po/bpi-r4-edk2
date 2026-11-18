@@ -1,0 +1,32 @@
+## @file
+#  BPI-R4 MAC addresses in the on-board EEPROM.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = BpiR4MacLib
+  FILE_GUID                      = 1e7ad188-decd-4f9d-b9f2-c3bd2efd6336
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = BpiR4MacLib|DXE_DRIVER UEFI_DRIVER
+
+[Sources]
+  BpiR4MacLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  Platform/BananaPi/BpiR4/BpiR4Pkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  ArmSmcLib
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  IoLib
+  MtkI2cLib
+  PrintLib
+  TimerLib

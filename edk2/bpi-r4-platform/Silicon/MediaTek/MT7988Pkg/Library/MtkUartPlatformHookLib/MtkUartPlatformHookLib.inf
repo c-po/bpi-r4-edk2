@@ -1,0 +1,30 @@
+## @file
+#  PlatformHookLib for the MediaTek UART, used by BaseSerialPortLib16550.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MtkUartPlatformHookLib
+  FILE_GUID                      = 0f09e1cd-5125-4408-aadc-723cb38f5bb8
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = PlatformHookLib
+
+[Sources]
+  MtkUartPlatformHookLib.c
+
+[Packages]
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  IoLib
+  PcdLib
+
+[FixedPcd]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterBase
+  gEfiMdeModulePkgTokenSpaceGuid.PcdSerialRegisterStride

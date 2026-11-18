@@ -1,0 +1,46 @@
+## @file
+#  MediaTek MT7988 (Filogic 880) silicon package.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x0001001B
+  PACKAGE_NAME                   = MT7988Pkg
+  PACKAGE_GUID                   = db3ec1e2-4bb0-411b-90f1-28b94164e23b
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  MT7988BootMediumLib|Include/Library/MT7988BootMediumLib.h
+  MtkI2cLib|Include/Library/MtkI2cLib.h
+
+[Guids.common]
+  gMT7988TokenSpaceGuid  = { 0x0f58b2fa, 0xc159, 0x46fb, { 0xb9, 0x7d, 0xf0, 0xfe, 0xab, 0xf7, 0x7d, 0x70 } }
+  gMtkMsdcDevicePathGuid = { 0x9174d54e, 0xa476, 0x4d43, { 0x9d, 0x00, 0x18, 0xb2, 0x71, 0x61, 0xba, 0xa4 } }
+
+[PcdsFixedAtBuild.common]
+  #
+  # Upper bound for the DRAM size probe. The BPI-R4 ships with 4 GB or 8 GB;
+  # PcdSystemMemorySize covers the part below 4 GB that is always present.
+  #
+  gMT7988TokenSpaceGuid.PcdSystemMemoryMaxSize|0x200000000|UINT64|0x00000001
+
+  #
+  # Secure monitor carve-out (BL31 + BL32 headroom), mirrors the
+  # secmon@43000000 reserved-memory node of the Linux device tree.
+  #
+  gMT7988TokenSpaceGuid.PcdSecureMonitorBase|0x43000000|UINT64|0x00000002
+  gMT7988TokenSpaceGuid.PcdSecureMonitorSize|0x00050000|UINT64|0x00000003
+
+  #
+  # MSDC SD/eMMC host controller. Clocks and pinmux are left configured by the
+  # ATF BL2 that loaded us from the same device.
+  #
+  gMT7988TokenSpaceGuid.PcdMsdcBase|0x11230000|UINT64|0x00000010
+  gMT7988TokenSpaceGuid.PcdMsdcTopBase|0x11C20000|UINT64|0x00000011
+  gMT7988TokenSpaceGuid.PcdMsdcSourceClockHz|384000000|UINT32|0x00000012
+  gMT7988TokenSpaceGuid.PcdMsdcMaxBusClockHz|25000000|UINT32|0x00000013

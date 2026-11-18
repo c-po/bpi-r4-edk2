@@ -1,0 +1,19 @@
+# build output
+/edk2/Build/
+/edk2/out/
+/dtb/
+/grub/bootaa64.efi
+/bpi-r4-edk2.img
+__pycache__/
+
+# copied in from dtb/ by mkedk2.sh
+/edk2/bpi-r4-platform/Platform/BananaPi/BpiR4/BpiR4-*.dtb
+
+# the USB stick is assembled from build output, only its menu is source
+/usb/*
+!/usb/grub.cfg
+
+# input, archives and other repositories kept next to this one
+/vyos-*.iso
+/backup/
+/vyos-build/

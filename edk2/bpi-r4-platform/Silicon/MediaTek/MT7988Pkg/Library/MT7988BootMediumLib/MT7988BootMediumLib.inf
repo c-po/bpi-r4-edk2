@@ -1,0 +1,25 @@
+## @file
+#  MT7988 boot medium detection.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MT7988BootMediumLib
+  FILE_GUID                      = b170a9a3-1e42-4122-8914-c66f3a4a6d5b
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MT7988BootMediumLib
+
+[Sources]
+  MT7988BootMediumLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  DebugLib
+  IoLib

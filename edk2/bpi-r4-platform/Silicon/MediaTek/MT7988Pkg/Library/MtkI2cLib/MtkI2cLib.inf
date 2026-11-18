@@ -1,0 +1,29 @@
+## @file
+#  Polled driver for the MT7988 I2C2 controller.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MtkI2cLib
+  FILE_GUID                      = 8fb9fb7e-647d-4191-affc-62df37936469
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MtkI2cLib|DXE_DRIVER UEFI_DRIVER
+
+[Sources]
+  MtkI2cLib.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  BaseMemoryLib
+  CacheMaintenanceLib
+  DebugLib
+  IoLib
+  TimerLib
+  UefiBootServicesTableLib

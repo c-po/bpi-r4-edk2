@@ -1,0 +1,36 @@
+## @file
+#  BPI-R4 DTB selection and MAC address fixup for DtPlatformDxe.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = BpiR4DtbLoaderLib
+  FILE_GUID                      = 646175de-c0f8-454e-becd-a5150c4935dc
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = DtPlatformDtbLoaderLib|DXE_DRIVER
+
+[Sources]
+  BpiR4DtbLoaderLib.c
+
+[Packages]
+  EmbeddedPkg/EmbeddedPkg.dec
+  MdePkg/MdePkg.dec
+  Platform/BananaPi/BpiR4/BpiR4Pkg.dec
+  Silicon/MediaTek/MT7988Pkg/MT7988Pkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BpiR4MacLib
+  DebugLib
+  DxeServicesLib
+  FdtLib
+  MemoryAllocationLib
+  MT7988BootMediumLib
+
+[Guids]
+  gBpiR4EmmcDtbFileGuid
+  gBpiR4SdDtbFileGuid

@@ -1,0 +1,59 @@
+/** @file
+  BPI-R4 MAC address page, listed under Device Manager.
+
+  SPDX-License-Identifier: BSD-2-Clause-Patent
+
+**/
+
+#include <Guid/HiiPlatformSetupFormset.h>
+#include "BpiR4MacConfig.h"
+
+formset
+  guid      = BPI_R4_MAC_FORMSET_GUID,
+  title     = STRING_TOKEN (STR_FORMSET_TITLE),
+  help      = STRING_TOKEN (STR_FORMSET_HELP),
+  classguid = EFI_HII_PLATFORM_SETUP_FORMSET_GUID,
+
+  efivarstore BPI_R4_MAC_VARSTORE,
+    attribute = 0x2,                         // EFI_VARIABLE_BOOTSERVICE_ACCESS
+    name      = BpiR4MacConfig,
+    guid      = BPI_R4_MAC_FORMSET_GUID;
+
+  form formid = BPI_R4_MAC_FORM_ID,
+    title     = STRING_TOKEN (STR_FORMSET_TITLE);
+
+    subtitle text = STRING_TOKEN (STR_BASE);
+    subtitle text = STRING_TOKEN (STR_STATUS);
+    subtitle text = STRING_TOKEN (STR_NULL);
+
+    subtitle text = STRING_TOKEN (STR_PORT0);
+    subtitle text = STRING_TOKEN (STR_PORT1);
+    subtitle text = STRING_TOKEN (STR_PORT2);
+    subtitle text = STRING_TOKEN (STR_PORT3);
+    subtitle text = STRING_TOKEN (STR_PORT4);
+    subtitle text = STRING_TOKEN (STR_PORT5);
+    subtitle text = STRING_TOKEN (STR_PORT6);
+    subtitle text = STRING_TOKEN (STR_NULL);
+
+    string varid    = BpiR4MacConfig.NewMac,
+      questionid    = KEY_SET_MAC,
+      prompt        = STRING_TOKEN (STR_SET_PROMPT),
+      help          = STRING_TOKEN (STR_SET_HELP),
+      flags         = INTERACTIVE,
+      minsize       = 0,
+      maxsize       = BPI_R4_MAC_STR_LEN,
+    endstring;
+
+    text
+      help   = STRING_TOKEN (STR_REGENERATE_HELP),
+      text   = STRING_TOKEN (STR_REGENERATE_PROMPT),
+      flags  = INTERACTIVE,
+      key    = KEY_REGENERATE;
+
+    text
+      help   = STRING_TOKEN (STR_CLEAR_HELP),
+      text   = STRING_TOKEN (STR_CLEAR_PROMPT),
+      flags  = INTERACTIVE,
+      key    = KEY_CLEAR;
+  endform;
+endformset;

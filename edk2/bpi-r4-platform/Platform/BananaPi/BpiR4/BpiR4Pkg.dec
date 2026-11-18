@@ -1,0 +1,24 @@
+## @file
+#  BananaPi BPI-R4 board package: board libraries and GUIDs.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  DEC_SPECIFICATION              = 0x0001001B
+  PACKAGE_NAME                   = BpiR4Pkg
+  PACKAGE_GUID                   = 12517308-17cb-489f-b843-287ff6013f08
+  PACKAGE_VERSION                = 0.1
+
+[Includes]
+  Include
+
+[LibraryClasses]
+  BpiR4MacLib|Include/Library/BpiR4MacLib.h
+
+[Guids.common]
+  # FREEFORM files in the FDF holding the Linux DTB for each boot medium
+  gBpiR4SdDtbFileGuid    = { 0x3b7b244a, 0x252e, 0x4ff4, { 0x97, 0x5d, 0x5f, 0x0d, 0x27, 0x39, 0xa2, 0xba } }
+  gBpiR4EmmcDtbFileGuid  = { 0x2db7bbeb, 0x2bee, 0x4f40, { 0xbd, 0xe3, 0x23, 0x98, 0x7d, 0x68, 0x85, 0x0a } }
+  gBpiR4MacFormSetGuid   = { 0xdff8bb3a, 0x53a0, 0x485f, { 0xb6, 0x69, 0x7e, 0x3f, 0x7a, 0xcf, 0xa8, 0x54 } }

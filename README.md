@@ -10,8 +10,7 @@ MT7988A, 4/8 GB) and uses it to run VyOS arm64. It covers:
   device tree by EDK2.
 - A **permanent VyOS install on the eMMC**.
 
-The older U-Boot path is documented in `bpi-r4-vyos-uboot-guide.md`, which
-also has the EDK2 sections in short form. This README is the complete record:
+This README is the complete record:
 how to rebuild everything, how the board was brought to its current state,
 and what is still open. The last section lets someone pick up the work.
 
@@ -45,23 +44,24 @@ Facts that are easy to get wrong (all verified on the board):
 
 | Path | Contents |
 |---|---|
-| `edk2/edk2` | tianocore/edk2 @ `2970e56` (+ `patches/edk2-*.patch`, applied by `mkedk2.sh`) |
-| `edk2/edk2-platforms` | tianocore/edk2-platforms @ `a46be4f` (unchanged) |
-| `edk2/bpi-r4-platform` | **the BPI-R4 port** (not a git repo, see section 9) |
-| `arm-trusted-firmware-mtk` | mt798x-platform/arm-trusted-firmware-mtk @ `e09077068` (unchanged) |
-| `u-boot` | used only for its `tools/mkimage` (and as a source for porting) |
-| `kverify/linux-6.18.50` | kernel source, used as a reference for clocks, pinctrl and drivers |
+| `edk2/edk2` | submodule, tianocore/edk2 @ `2970e56` (+ `patches/edk2-*.patch`, applied by `mkedk2.sh`) |
+| `edk2/edk2-platforms` | submodule, tianocore/edk2-platforms @ `a46be4f` (unchanged) |
+| `edk2/bpi-r4-platform` | **the BPI-R4 port** |
+| `arm-trusted-firmware-mtk` | submodule, mt798x-platform/arm-trusted-firmware-mtk @ `e09077068` (unchanged) |
 | `mkdtb.sh` | extracts the base DTB and overlays from the ISO's kernel, writes `dtb/*-sd.dtb` and `dtb/*-emmc.dtb` |
 | `mkedk2.sh` | builds EDK2 and the three BL2/FIP variants (section 3) |
 | `mkgrub.sh` | builds `grub/bootaa64.efi` (standalone arm64-efi, includes the `chain` and `memrw` modules) |
 | `mksdimg.sh` | builds a complete SD image (GPT + BL2 + FIP + ESP) |
 | `unpack-iso.sh` | unpacks the newest `vyos-*arm64.iso` to `/tmp/vyos-iso` |
 | `grub/grub.cfg` | GRUB menu for the SD ESP |
-| `usb/` | everything for the USB stick (section 5) |
+| `usb/grub.cfg` | GRUB menu for the USB stick; the rest of `usb/` is assembled from build output (section 5) |
 | `tools/bpi-r4-mac` | show or set the MAC addresses from Linux |
 | `tools/flash-nand.sh` | writes BL2 and the FIP to SPI-NAND and verifies both |
 | `patches/edk2-xhci-mtk-sch.patch` | EDK2 core patch (MediaTek xHCI) |
-| `dl/` | downloaded `mtd-utils` arm64 package |
+
+Clone with `git clone --recurse-submodules`, or run
+`git submodule update --init --recursive` in an existing clone. Build output and
+the VyOS ISO are listed in `.gitignore`.
 
 ### EDK2 port (`edk2/bpi-r4-platform`)
 
@@ -82,9 +82,6 @@ Silicon/MediaTek/MT7988Pkg/
   Drivers/MtkXhciDxe             USB clocks, T-PHY, IPPC, non-discoverable xHCI, port power
 ```
 
-`Platform/BananaPi/BpiR4/BpiR4.dtb` is left over from before and is no longer
-used.
-
 ---
 
 ## 3. Building
@@ -94,10 +91,12 @@ used.
 ```bash
 sudo apt install gcc-aarch64-linux-gnu bison flex bc make xxd libssl-dev \
                  libgnutls28-dev uuid-dev device-tree-compiler \
-                 python3-pyelftools mtools dosfstools fdisk xz-utils
+                 python3-pyelftools mtools dosfstools fdisk xz-utils \
+                 u-boot-tools
 ```
 
-`dtc`/`fdtoverlay` come from `device-tree-compiler`; `mkgrub.sh` also needs
+`dtc`/`fdtoverlay` come from `device-tree-compiler`, and `mkimage` (which ATF
+uses to wrap BL2) from `u-boot-tools`. `mkgrub.sh` also needs
 `grub-mkstandalone` (grub-common) and downloads the arm64 GRUB modules from
 deb.debian.org.
 
@@ -152,7 +151,7 @@ dd if=fip.bin of=/dev/mmcblk0p4 bs=512 conv=fsync     # p4 = "fip"
    `/soc/spi@11007000/flash@0/partitions/partition@0`
    (`usb/mt7988a-bananapi-bpi-r4-sd-nandrw.dtb`, GRUB entry "NAND bl2
    writable" on the stick).
-2. Install `mtd-utils` (`dl/mtd-utils_2.1.5-1_arm64.deb`). dpkg complains
+2. Install `mtd-utils` (Debian's `mtd-utils_2.1.5-1_arm64.deb`). dpkg complains
    about the missing `libiniparser1`, which only `ubinize` needs; `flash_erase`,
    `nandwrite` and `ubiupdatevol` work. They are in `/usr/sbin`, which isn't
    on a non-root user's PATH, so run them with sudo.
