@@ -1,0 +1,12 @@
+[submodule "edk2/edk2"]
+	path = edk2/edk2
+	url = https://github.com/tianocore/edk2
+	ignore = dirty
+[submodule "edk2/edk2-platforms"]
+	path = edk2/edk2-platforms
+	url = https://github.com/tianocore/edk2-platforms
+	ignore = dirty
+[submodule "arm-trusted-firmware-mtk"]
+	path = arm-trusted-firmware-mtk
+	url = https://github.com/mt798x-platform/arm-trusted-firmware-mtk
+	ignore = dirty
